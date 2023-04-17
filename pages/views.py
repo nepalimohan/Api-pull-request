@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import requests
 # Create your views here.
 
@@ -11,3 +11,25 @@ def users(request):
     
     # print(users)
     return render(request, 'users.html',{'users': users})
+
+def new(request):
+    # response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
+    response = requests.get('https://jsonplaceholder.typicode.com/todos/')
+    
+    if request.method == 'POST':
+        pass
+    
+    return render(request, 'todo.html', {'data':response.json()})
+    return HttpResponse(response.json())
+
+    
+    
+def category(request):
+    response = requests.get('http://127.0.0.1:8000/category/')
+    print(response)
+    category = response.json()
+    print(category[0])
+    # print(category)
+
+    
+    return render(request, 'category.html',{'category': category})
