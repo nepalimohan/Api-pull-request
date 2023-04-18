@@ -33,3 +33,18 @@ def category(request):
 
     
     return render(request, 'category.html',{'category': category})
+
+def category_post(request):
+    if request.method == "POST":
+        print('here')
+        category = request.POST.get('category')
+        parent = request.POST.get('parent')
+        
+        data = {
+            'category': category,
+            'parent': parent,
+        }
+        
+        requests.post('http://127.0.0.1:8000/category/', json=data)
+        
+    return render(request, 'post_cat.html')
